@@ -1,2 +1,3 @@
-cvranking-env
+.venv
 __pycache__
+.env
