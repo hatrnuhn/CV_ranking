@@ -1,0 +1,7 @@
+pytesseract
+python-dotenv
+requests
+numpy
+pdf2image
+Flask
+Flask_Cors
