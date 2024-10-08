@@ -12,3 +12,5 @@ numpy
 pdf2image
 Flask
 Flask_Cors
+langchain-core
+langchain-groq

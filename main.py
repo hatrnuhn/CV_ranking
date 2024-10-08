@@ -13,21 +13,22 @@ processor = CVRanking()
 
 @app.route('/cvs', methods=['POST'])
 def process_uploaded_cv():
+    print(request)
     if 'file' not in request.files:
-        return jsonify({'error': 'No PDF file provided'}), 400
+        return jsonify('cvs401'), 400
 
     file = request.files['file']
     
     # Ensure the uploaded file is a PDF
     if not file.filename.endswith('.pdf'):
-        return jsonify({'error': 'Non PDF file provided'}), 400
+        return jsonify('cvs402'), 400
 
     # Read the file content directly into memory
     file_content = file.read()
 
     extracted_text = processor.extract_cv(file_content)
 
-    return jsonify({'extracted_text': extracted_text})
+    return jsonify(extracted_text)
 
 @app.route('/applicants/rank', methods=['POST'])
 def rank_applicants():
@@ -44,8 +45,7 @@ def rank_applicants():
     except Exception as e:
         return jsonify({'error': f'Could not rank candidates: {str(e)}'}), 500
 
-    print(candidate_ranking)
-    return jsonify({'response': candidate_ranking}), 200
+    return jsonify(candidate_ranking), 200
 
 
 if __name__ == "__main__":
