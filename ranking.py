@@ -67,20 +67,23 @@ class CVRanking:
 
         try:
             # Loop through the provided candidates, generate embeddings, and calculate cosine similarity
-            for candidate_name, candidate_desc in candidates:
+            for candidate in candidates:
+                candidate_id = candidate['id']
+                candidate_resume = candidate['resume']
+
                 # Generate embedding for the candidate's resume text
-                candidate_desc_embedding = self.generate_embeddings(candidate_desc)
+                candidate_resume_embedding = self.generate_embeddings(candidate_resume)
 
                 # Calculate cosine similarity between candidate's resume and expected competency
-                score = self.calculate_cosine_similarity(candidate_desc_embedding, expected_competency_embedding)
-                scores[candidate_name] = score
+                score = self.calculate_cosine_similarity(candidate_resume_embedding, expected_competency_embedding)
+                scores[candidate_id] = score
         except Exception as e:
             print(f'Could not calculate cosine similarity: {e}')
-
+        
         # Sort candidates by score (descending) to rank them
         sorted_candidates = sorted(scores.items(), key=lambda item: item[1], reverse=True)
 
-        # Return a list of { candidate_name: string, candidate_score: int }
-        ranked_candidates = [{'candidate_name': candidate, 'candidate_score': score} for candidate, score in sorted_candidates]
+        # Return a list of { candidateId: string, score: number }
+        ranked_candidates = [{'candidateId': candidate_id, 'score': score} for candidate_id, score in sorted_candidates]
 
         return ranked_candidates

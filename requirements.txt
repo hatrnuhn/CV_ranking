@@ -14,3 +14,4 @@ Flask
 Flask_Cors
 langchain-core
 langchain-groq
+waitress

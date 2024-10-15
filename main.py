@@ -30,7 +30,7 @@ def process_uploaded_cv():
 
     return jsonify(extracted_text)
 
-@app.route('/applicants/rank', methods=['POST'])
+@app.route('/applicants/ranks', methods=['POST'])
 def rank_applicants():
     data = request.get_json()
     job_description = data.get('job_description')
